@@ -1,0 +1,969 @@
+﻿/* ------------------ S E V E R . S T Y L E S . 2 0 1 5 ----------------*/
+
+/* Desarrollado por D&D Developers and Designers*/
+
+/*--- C O N F I G ---*/
+
+* {
+    margin:0px;
+    padding:0px;
+    list-style:none !important;
+    text-decoration:none !important;
+    font-family:cuerpo;
+    -webkit-transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition:         all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+a, button{
+    text-decoration:none;
+}
+
+a:active,a:focus, button:active, button:focus{
+    outline:0px !important;
+}
+
+
+/*---------------------- T E X T --------------------*/
+
+
+
+@font-face { /*Fuente de titulo*/
+    font-family: titulo;
+    src: url('../fonts/Lato-Bold.ttf') format('truetype');
+}
+
+@font-face { /*Fuente de titulo Bold*/
+    font-family: tituloBD;
+    src: url('../fonts/Lato-Black.ttf') format('truetype');
+}
+
+@font-face { /*Fuente de titulo*/
+    font-family: cuerpo;
+    src: url('../fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face { /*Fuente de titulo Bold*/
+    font-family: cuerpoBD;
+    src: url('../fonts/Lato-Semibold.ttf') format('truetype');
+}
+
+.txt-small{
+    font-size:14px;
+}
+
+.titulo{
+    font-family: titulo;
+}
+
+.tituloBD{
+    font-family: tituloBD;
+}
+
+.cuerpo{
+    font-family: cuerpo;
+}
+
+.input-bien{
+    display:none;
+}
+
+.input-mal{
+    display:block;
+}
+
+.txt-error{
+    color:red;
+}
+
+.cuerpoBD{
+    font-family: cuerpoBD;
+}
+
+.bg-1{ /*bacground principal*/
+    background: #fff !important;
+}
+
+.bg-2{ /*bacground secundario*/
+    background: #1b1b1b !important;
+}
+
+.bg-3{ /*bacground terciario*/
+    background: #EE5123 !important;
+}
+
+.bg-none{ /*bacground none*/
+    background:transparent !important;
+}
+
+.txt-color-1{/*color de texto principal*/
+    color:#2b9542 !important;
+}
+
+.txt-color-2{/*color de texto secundario*/
+    color:#CDD432 !important;
+}
+
+.txt-color-3{/*color de texto terciario*/
+    color:#EE5222 !important;
+}
+
+h1, h2, h3, h4, h5, h6, .titulo, .titulo-sm, .titulo-xl, a, span{/*color de texto de titulos*/
+    color:rgb(0, 193, 183);;
+}
+
+p, .parrafo, .parrafo-sm, .parrafo-xl{/*color de texto de parrafos*/
+    color:#1b1b1b;
+    padding: 5px;
+    display: block;
+} 
+
+h1, h2, h3, h4, h5, h6, .titulo, .titulo-sm, .titulo-xl{/*fuente de texto de titulos*/
+    font-family:titulo !important; 
+    padding: 10px 5px 10px 5px;
+    display: block; 
+}
+
+h1, .titulo{
+    font-size:33px;
+}
+
+p, .parrafo{
+    font-size:16px;
+}
+
+p, .parrafo, .parrafo-sm, .parrafo-xl{/*color de texto de parrafos*/
+    font-family:cuerpo;
+} 
+
+.font-titulo{
+    font-family:titulo !important;
+}
+
+.font-parrafo{
+    font-family:cuerpo !important;
+}
+
+.font-parrafobd{
+    font-family:cuerpoBD !important;
+}
+
+.font-alterna{
+    font-family:alterna !important;
+}
+
+.txt-blanco{
+    color:white !important;
+}
+
+.txt-negro{
+    color:#1b1b1b !important;
+}
+
+.txt-center{
+    text-align:center;
+}
+
+.txt-right{
+    text-align:right;
+}
+
+.txt-left{
+    text-align:left;
+}
+
+.txt-justify{
+    text-align:justify;
+}
+
+.txt-2{
+    font-size:2px !important;
+}
+
+.txt-4{
+    font-size:4px !important;
+}
+
+.txt-6{
+    font-size:16px !important;
+}
+
+.txt-8{
+    font-size:8px !important;
+}
+
+.txt-10{
+    font-size:10px !important;
+}
+
+.txt-12{
+    font-size:12px !important;
+}
+
+.txt-14{
+    font-size:14px !important;
+}
+
+.txt-16{
+    font-size:16px !important;
+}
+
+.txt-18{
+    font-size:18px !important;
+}
+
+.txt-20{
+    font-size:20px !important;
+}
+
+.txt-22{
+    font-size:22px !important;
+}
+
+.txt-24{
+    font-size:24px !important;
+}
+
+.txt-26{
+    font-size:26px !important;
+}
+
+.txt-28{
+    font-size:28px !important;
+}
+
+.txt-30{
+    font-size:30px !important;
+}
+
+.txt-32{
+    font-size:32px !important;
+}
+
+.txt-34{
+    font-size:34px !important;
+}
+
+.txt-36{
+    font-size:36px !important;
+}
+
+.txt-38{
+    font-size:38px !important;
+}
+
+.txt-40{
+    font-size:40px !important;
+}
+
+.txt-42{
+    font-size:42px !important;
+}
+
+.txt-44{
+    font-size:44px !important;
+}
+
+.txt-46{
+    font-size:46px !important;
+}
+
+.txt-48{
+    font-size:48px !important;
+}
+
+.txt-50{
+    font-size:50px !important;
+}
+
+.txt-52{
+    font-size:52px !important;
+}
+
+.txt-54{
+    font-size:54px !important;
+}
+
+.txt-56{
+    font-size:56px !important;
+}
+
+.txt-58{
+    font-size:58px !important;
+}
+
+.txt-60{
+    font-size:60px !important;
+}
+
+.txt-62{
+    font-size:62px !important;
+}
+
+.txt-64{
+    font-size:64px !important;
+}
+
+.txt-66{
+    font-size:66px !important;
+}
+
+.txt-68{
+    font-size:68px !important;
+}
+
+.txt-70{
+    font-size:70px !important;
+}
+
+/*---------------------- F I N . T E X T --------------------*/
+
+
+/*--- F I N . C O N F I G ---*/
+
+
+
+/*--- C O N T E N E D O R E S  ---*/
+
+.contenedor-0{
+    width:100%;
+    height:auto;
+    display:inline-block;
+}
+
+.center-btn{
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.body-padding{
+    padding-top:62px;
+}
+
+.hover-scale{
+    transition:all 0.2s linear
+}
+
+.hover-scale:hover{
+    transform:scale(1.02)
+}
+
+.contenedor-negro{
+    background:#1b1b1b;
+    width:100%;
+    height: auto;
+    padding:80px 0px 80px 0px;
+
+}
+
+.contenedor-negro2{
+    background:#353535;
+    width:100%;
+    height: auto;
+    padding:80px 0px 80px 0px;
+
+}
+
+.br{
+    margin-bottom:50px;
+}
+
+.div-padding{
+    padding:20px !important;
+}
+
+.contenedor-general{
+    width:80%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.full{
+    width:100% !important;
+    position: relative;
+}
+
+.full-full{
+    width:100% !important;
+    height:100% !important;
+    position: relative;
+}  
+
+/*--- C O N T E N E D O R E S  ---*/
+
+.form-1 input, .form-1 select{
+    padding:10px 18px 4px 5px;
+    font-size:20px;
+    border:none;
+    border-bottom:2px solid #99B932;
+    width:100%;
+    background: transparent;
+}
+
+
+
+.form-1 input:placeholder{
+    color:#929292 !important
+}
+
+.form-1 input::-webkit-input-placeholder {
+    /* Google Chrome y Safari */
+    color: #929292;
+}
+.form-1 input:-moz-placeholder{
+    /* Firefox anterior a 19 */
+    color: #929292;
+}
+.form-1 input::-moz-placeholder{
+    /* Firefox 19 y superior */
+    color: #929292;
+}
+.form-1 input:-ms-input-placeholder {
+    /* Internet Explorer 10 y superior */
+    color: #929292;
+}
+
+.form-1 textarea:placeholder{
+    color:#929292 !important
+}
+
+.form-1 textarea::-webkit-input-placeholder {
+    /* Google Chrome y Safari */
+    color: #929292;
+}
+.form-1 textarea:-moz-placeholder{
+    /* Firefox anterior a 19 */
+    color: #929292;
+}
+.form-1 textarea::-moz-placeholder{
+    /* Firefox 19 y superior */
+    color: #929292;
+}
+.form-1 textarea:-ms-input-placeholder {
+    /* Internet Explorer 10 y superior */
+    color: #929292;
+}
+
+.form-1 textarea{
+    padding:10px 18px 4px 5px;
+    font-size:20px;
+    border:none;
+    border-bottom:2px solid #99B932;
+    width:100%;
+    height:200px;
+    background: transparent;
+}
+
+.form-1 .btn-submit{
+    color: #99B932;
+    background-color: transparent;
+    border: 2px solid #99B932;
+    display: inline-block;
+    padding: 14px 24px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size:18px
+}
+
+.form-1 .btn-submit:hover{
+    color: #fff;
+    background-color:#99B932;
+    border: 2px solid #99B932;
+    display: inline-block;
+    padding: 14px 24px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.boton-1{
+    color: #99B932;
+    background-color: transparent;
+    border: 2px solid #99B932;
+    display: inline-block;
+    padding: 14px 24px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.cargador{
+    width:0%;
+    height:4px;
+    background:#0D77CE;
+    -webkit-transition: all 20s ease-in-out;
+    -moz-transition: all 20s ease-in-out;
+    -ms-transition: all 20s ease-in-out;
+    transition: all 20s ease-in-out;
+}
+
+.boton-1:hover{
+    color: #fff;
+    background-color:#99B932;
+    border: 2px solid #99B932;
+    display: inline-block;
+    padding: 14px 24px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input, textarea, select{
+    outline:0px !important;
+}
+
+.absolute-bottom{
+    position:absolute !important;
+    bottom:0px;
+    left:0px;
+    right:0px;
+}
+
+.fixed-bottom{
+    position:fixed !important;
+    bottom:0px;
+    left:0px;
+    right:0px;
+}
+
+.absolute-top{
+    position:absolute !important;
+    top:0px;
+    left:0px;
+    right:0px;
+}
+
+.space-top{
+    width:100%;
+    height:80px;
+}
+
+.full-pantalla{
+    position:absolute !important;
+    width:100% !important;
+    height:100% !important;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col{
+    width:auto;
+}
+
+.col-7-col{
+    width:14.28%;
+    float:left;
+    height:auto;
+    padding:10px;
+    position:relative;
+}
+
+.col-10-float{
+    width:10%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-20-float{
+    width:20%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-30-float{
+    width:33%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-40-float{
+    width:40%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-50-float{
+    width:50%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-60-float{
+    width:60%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-70-float{
+    width:70%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-80-float{
+    width:80%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-90-float{
+    width:90%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-95-float{
+    width:95%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-100-float{
+    width:100%;
+    float:left;
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-10-block{
+    width:10%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-20-block{
+    width:20%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-30-block{
+    width:30%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-40-block{
+    width:40%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-50-block{
+    width:50%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-60-block{
+    width:60%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-70-block{
+    width:70%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-80-block{
+    width:80%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-90-block{
+    width:90%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.col-100-block{
+    width:100%;
+    display:block;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+    height:auto;
+    padding:15px;
+    position:relative;
+}
+
+.cont-padding{
+            padding:10px !important;
+        }
+
+.seccion-regular{
+    width:100%;
+    display:inline-block;
+    padding:90px 0px 90px 0px;
+    margin-bottom:-8px;
+}
+
+.seccion-0p{
+    width:100%;
+    display:inline-block;
+    padding:10px 0px 10px 0px;
+}
+
+.block-10p{
+    width:10%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+.block-20p{
+    width:20%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-30p{
+    width:30%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-40p{
+    width:40%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-50p{
+    width:50%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-60p{
+    width:60%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-70p{
+    width:70%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-80p{
+    width:80%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.block-90p{
+    width:90%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+.block-100p{
+    width:100%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+
+
+
+
+/* --- M E D I A . Q U E R Y S ---*/
+
+ @media (max-width:1199px) and (min-width: 992px) { /*Portatiles*/
+        .contenedor-general{
+            width:90%;
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        .cont-padding{
+            padding:20px !important;
+        }
+
+    }/* FIN Portatiles*/
+
+    @media (max-width:991px) and (min-width: 768px) { /*Tablets*/
+
+        .seccion-regular{
+            width:100%;
+            display:inline-block;
+            padding:10px 0px 10px 0px;
+            margin-bottom:-8px;
+        }
+
+        .col-10-block, .col-20-block, .col-30-block, .col-40-block, .col-50-block, .col-60-block, .col-70-block, .col-80-block, .col-90-block, .col-100-block,
+        .col-10-float, .col-20-float, .col-30-float, .col-40-float, .col-50-float, .col-60-float, .col-70-float, .col-80-float, .col-90-float, .col-100-float{
+            width:100%;
+            display:block;
+            margin-left:auto !important;
+            margin-right:auto !important; 
+            height:auto;
+            padding:10px;
+        }
+
+
+        .col-2-col{
+            width:50% !important;
+            float:left;
+            height:auto;
+            padding:10px;
+            position:relative;
+        }
+
+        .contenedor-general{
+            width:95%;
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        .cont-padding{
+            padding:15px !important;
+        }
+
+        h1, .titulo{
+            font-size:33px;
+        }
+
+        
+    }/* FIN tablets*/
+
+     @media (max-width:767px) { /*Celulares*/
+
+         .col-2-col{
+            width:50% !important;
+            float:left;
+            height:auto;
+            padding:10px;
+            position:relative;
+        }
+
+        .contenedor-general{
+            width:100%;
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        .col-10-block, .col-20-block, .col-30-block, .col-40-block, .col-50-block, .col-60-block, .col-70-block, .col-80-block, .col-90-block, .col-100-block,
+        .col-10-float, .col-20-float, .col-30-float, .col-40-float, .col-50-float, .col-60-float, .col-70-float, .col-80-float, .col-90-float, .col-100-float{
+            width:100%;
+            display:block;
+            margin-left:auto !important;
+            margin-right:auto !important; 
+            height:auto;
+            padding:10px;
+        }
+
+        .full-pantalla{
+            position:relative !important;
+        }
+        
+        .absolute-bottom, .fixed-bottom{
+            position:relative !important;
+        }
+
+        .cont-padding{
+            padding:5px !important;
+        }
+
+        h1, .titulo{
+            font-size:25px !important;
+        }
+
+    }/* FIN Celulares*/
+
+/* --- F I N . M E D I A . Q U E R Y S ---*/

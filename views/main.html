@@ -1,0 +1,20 @@
+
+
+<h2>Tus tiendas</h2>
+<br />
+<div class="row">
+    <div class="col-md-2 col-sm-6 col-xs-12" ng-repeat="store in stores">
+        <div class="contenedor-tienda">
+            <div class="logo-tienda">
+                <img src="https://krono-dev.s3-sa-east-1.amazonaws.com/{{store.logo}}" />
+            </div>
+            <a href="#/productos/{{store.id}}"><p class="txt-center letra-tienda">{{store.name}}</p></a>
+            <div class="switch swiche">
+                <input type="checkbox" id="switch{{$index}}" class="switch__input" ng-model="store.isActive">
+                <label for="switch{{$index}}" class="switch__label txt-verde cuerpoBD"></label>
+            </div>
+            <p class="txt-center txt-verde cuerpoBD">{{(store.isActive)?'Abierta':'Cerrada'}}</p>
+        </div>
+    </div>
+</div>
+

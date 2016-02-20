@@ -1,0 +1,714 @@
+
+<h2>{{NombreTienda}}</h2>
+<br />
+<div class="row">
+    <div class="col-md-12">
+
+        <lx-tabs active-tab="tab.activa">
+			<lx-tab heading="Productos">
+
+                <div class="card">
+                    <div class="toolbar">
+
+                        <span class="toolbar__label fs-title">Listado</span>
+
+                        <div class="toolbar__right">
+                            <lx-search-filter closed theme="light"></lx-search-filter>
+                        </div>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Codigo de barras</th> 
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="Producto in Productos">
+                            <td><img src="https://krono-dev.s3-sa-east-1.amazonaws.com/{{Producto.ProductImage}}" class="foto-producto-productos" /></td>
+                            <td><b>{{Producto.ProductName}}</b></td>
+                            <td>${{Producto.price}}</td>
+                            <td>{{(Producto.ProductBarcode == 'null')?'':Producto.ProductBarcode}}</td>
+                            <td><button class="btn btn--s btn--krono btn--raised margin-r margin-b" lx-ripple ng-click="opendDialog('editarProducto')">Editar</button><button class="btn btn--s btn--krono btn--raised margin-b" lx-ripple>Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </lx-tab>
+
+			<lx-tab heading="Kroneros">
+                <div class="card">
+                    <div class="toolbar">
+
+                        <span class="toolbar__label fs-title">Listado de Kroneros</span>
+
+                        <div class="toolbar__right">
+                            <lx-search-filter closed theme="light"></lx-search-filter>
+                        </div>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>User Name</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+						<tr ng-repeat="item in kroneros">
+							<td><b>{{item.name}}</b></td>
+							<td>{{item.username}}</td>
+                            <td></td>
+							<td><button class="btn btn--s btn--krono btn--raised margin-r margin-b" ng-click="ConsultarKroneroid(item)" lx-ripple>Editar</button><button ng-click="eliminar(item.id)" class="btn btn--s btn--krono btn--raised margin-b" lx-ripple>Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </lx-tab>
+
+			<lx-tab heading="Sincronizador">
+                <p class="p+">Sincronizador</p>
+            </lx-tab>
+        </lx-tabs>
+    </div>
+</div>
+
+
+
+<lx-dialog class="dialog dialog--l" id="nuevoProducto" auto-close="true" onclose="closingDialog()" onscrollend="scrollEndDialog()">
+    <div class="dialog__header">
+        <div class="toolbar bgc-light-blue-500 pl++">
+            <span class="toolbar__label tc-white fs-title">
+                Crea tu producto
+            </span>
+
+            <div class="toolbar__right">
+                <button class="btn btn--l btn--white btn--icon" lx-ripple lx-dialog-close>
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog__content">
+        <div class="container">
+            <div flex-container="row" flex-gutter="24">
+
+                <div class="col-md-9">
+                    <lx-text-field label="Nombre">
+						<input type="text" ng-model="DatosProductos.name">
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="label-derecha">Max 33 caracteres*</p>
+                </div>
+            </div>
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-12">
+                    <lx-text-field label="Descripci&oacute;n">
+						<textarea type="text" ng-model="DatosProductos.description"></textarea>
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-12">
+                    <lx-text-field label="Palabras clave">
+						<textarea type="text" ng-model="DatosProductos.keywords"></textarea>
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="txt-verde">Como tienes el precio de este producto en tu sistema</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="radio-button">
+							<input ng-model="DatosProductos.unitWeight" type="radio" id="radio1" name="radio1" value="1" class="radio-button__input">
+                            <label for="radio1" class="radio-button__label">Por peso</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="radio-button">
+							<input ng-model="DatosProductos.unitWeight" type="radio" id="radio2" name="radio1" value="2" class="radio-button__input">
+                            <label for="radio2" class="radio-button__label">Por unidad</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="porPeso" class="visible">
+               <div class="row">
+                   <div class="col-md-12">
+                       <h4 class="txt-verdeoscuro">Por peso</h4>
+                   </div>
+                    <div class="col-md-6">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Unidad de medida en el sistema" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las siguientes opciones "gramo" "Libra" "kilogramo" -->
+                    </div>
+                    <div class="col-md-6">
+                        <lx-text-field label="Peso promedio por Kilo">
+                            <input type="number" ng-model="textFields.peso">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                    </div>
+                </div>
+            </div>
+            <div id="porUnidad" class="oculto">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="txt-verdeoscuro">Por unidad</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <lx-text-field label="Peso por unidad">
+                            <input type="number" ng-model="textFields.peso">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Categor&iacute;a" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las categorias por ejemplo "frutas" "lacteos,huevos" "carnes" -->
+                    </div>
+                    <div class="col-md-12">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Subcategor&iacute;a" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las subcategorias"frutas a granel" "frutas empacadas" -->
+                    </div>
+                </div>
+                <div flex-container="row" flex-gutter="24">
+                    <div class="col-md-9">
+                        <lx-text-field label="Otra categor&iacute;a (opcional)">
+                            <input type="text" ng-model="textFields.otra">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button class="btn btn--s btn--krono btn--raised margin-r bajar-objeto" lx-ripple>Agregar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div flex-item>
+                            <lx-file-input label="Seleccionar imagen"></lx-file-input>
+                        </div>
+                        <p class="txt-alerta">El peso m&aacute;ximo del archivo es de 3MB. Los siguientes formatos son compatibles "jpeg, jpg, png".<br />
+                        El tama&ntilde;o de imagen que te recomendamos es de 200px x 200px</p>
+
+                        <lx-text-field label="Codigo de barras del producto">
+							<input type="number" ng-model="DatosProductos.barCode">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                        <p class="txt-alerta">
+                            Este es el codigo que sirve para sincronizar los precios
+                        </p>
+                    </div>
+                    <div class="col-md-3 visible">
+                        <img src="../img/producto.png" class="imagen-nuevo-producto" />
+                    </div>
+                </div>
+                
+            </div>
+            <div class="space-footer"></div>
+        </div>
+    </div>
+
+    <div class="dialog__actions">
+        <button class="btn btn--m btn--black btn--flat cuerpoBD" lx-ripple lx-dialog-close>Cancelar</button>
+        <button ng-click="guardarProductos()" class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple>Crear</button>
+    </div>
+</lx-dialog>
+
+<lx-dialog class="dialog dialog--l" id="editarProducto" auto-close="true" onclose="closingDialog()" onscrollend="scrollEndDialog()">
+    <div class="dialog__header">
+        <div class="toolbar bgc-light-blue-500 pl++">
+            <span class="toolbar__label tc-white fs-title">
+                Editar producto
+            </span>
+
+            <div class="toolbar__right">
+                <button class="btn btn--l btn--white btn--icon" lx-ripple lx-dialog-close>
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog__content">
+        <div class="container">
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-9">
+                    <lx-text-field label="Nombre">
+                        <input type="text" ng-model="textFields.lastName">
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="label-derecha">Max 33 caracteres*</p>
+                </div>
+            </div>
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-12">
+                    <lx-text-field label="Descripci&oacute;n">
+                        <textarea type="text" ng-model="textFields.descripcion"></textarea>
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-12">
+                    <lx-text-field label="Palabras clave">
+                        <textarea type="text" ng-model="textFields.palabras"></textarea>
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="txt-verde">Como tienes el precio de este producto en tu sistema</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="radio-button">
+                            <input type="radio" id="radio1" name="radio1" value="1" class="radio-button__input">
+                            <label for="radio1" class="radio-button__label">Por peso</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="radio-button">
+                            <input type="radio" id="radio2" name="radio1" value="2" class="radio-button__input">
+                            <label for="radio2" class="radio-button__label">Por unidad</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="porPeso" class="visible">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="txt-verdeoscuro">Por peso</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Unidad de medida en el sistema" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las siguientes opciones "gramo" "Libra" "kilogramo" -->
+                    </div>
+                    <div class="col-md-6">
+                        <lx-text-field label="Peso promedio por Kilo">
+                            <input type="number" ng-model="textFields.peso">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                    </div>
+                </div>
+            </div>
+            <div id="porUnidad" class="oculto">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="txt-verdeoscuro">Por unidad</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <lx-text-field label="Peso por unidad">
+                            <input type="number" ng-model="textFields.peso">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Categor&iacute;a" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las categorias por ejemplo "frutas" "lacteos,huevos" "carnes" -->
+                    </div>
+                    <div class="col-md-12">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Subcategor&iacute;a" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las subcategorias"frutas a granel" "frutas empacadas" -->
+                    </div>
+                </div>
+                <div flex-container="row" flex-gutter="24">
+                    <div class="col-md-9">
+                        <lx-text-field label="Otra categor&iacute;a (opcional)">
+                            <input type="text" ng-model="textFields.otra">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button class="btn btn--s btn--krono btn--raised margin-r bajar-objeto" lx-ripple>Agregar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div flex-item>
+                            <lx-file-input label="Seleccionar imagen"></lx-file-input>
+                        </div>
+                        <p class="txt-alerta">
+                            El peso m&aacute;ximo del archivo es de 3MB. Los siguientes formatos son compatibles "jpeg, jpg, png".<br />
+                            El tama&ntilde;o de imagen que te recomendamos es de 200px x 200px
+                        </p>
+
+                        <lx-text-field label="Codigo de barras del producto">
+                            <input type="number" ng-model="textFields.codigo">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                        <p class="txt-alerta">
+                            Este es el codigo que sirve para sincronizar los precios
+                        </p>
+                    </div>
+                    <div class="col-md-3 visible">
+                        <img src="../img/producto.png" class="imagen-nuevo-producto" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="space-footer"></div>
+        </div>
+    </div>
+
+    <div class="dialog__actions">
+        <button class="btn btn--m btn--black btn--flat cuerpoBD" lx-ripple lx-dialog-close>Cancelar</button>
+        <button class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple>Crear</button>
+    </div>
+</lx-dialog>
+
+<lx-dialog class="dialog dialog--l" id="nuevoKronero" auto-close="true" onclose="closingDialog()" onscrollend="scrollEndDialog()">
+    <div class="dialog__header">
+        <div class="toolbar bgc-light-blue-500 pl++">
+            <span class="toolbar__label tc-white fs-title">
+                Nuevo Kronero
+            </span>
+
+            <div class="toolbar__right">
+                <button class="btn btn--l btn--white btn--icon" lx-ripple lx-dialog-close>
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog__content">
+        <div class="container">
+            <div class="row">
+				<div class="col-md-12">
+					<lx-text-field label="Name">
+						<input type="text" ng-model="datoskronero.name">
+					</lx-text-field>
+					<p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+				</div>
+
+				<div class="col-md-12">
+					<lx-text-field label="User name">
+						<input type="text" ng-model="datoskronero.username">
+					</lx-text-field>
+					<p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+				</div>
+
+				<div class="col-md-12">
+					<lx-text-field label="Contrase&ntilde;a">
+						<input type="password" ng-model="datoskronero.password">
+					</lx-text-field>
+					<p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+				</div>
+
+				<div class="col-md-12">
+					<lx-text-field label="Confirmar Contrase&ntilde;a">
+						<input type="password" ng-model="datoskronero.passwordd">
+					</lx-text-field>
+					<p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+				</div>
+            </div>
+            
+            <div class="space-footer"></div>
+        </div>
+    </div>
+
+    <div class="dialog__actions">
+        <button class="btn btn--m btn--black btn--flat cuerpoBD" lx-ripple lx-dialog-close>Cancelar</button>
+		<button ng-click="guardar()" class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple>Crear</button>
+    </div>
+</lx-dialog>
+
+<lx-dialog class="dialog dialog--l" id="editarKronero" auto-close="true" onclose="closingDialog()" onscrollend="scrollEndDialog()">
+    <div class="dialog__header">
+        <div class="toolbar bgc-light-blue-500 pl++">
+            <span class="toolbar__label tc-white fs-title">
+                Editar Kronero
+            </span>
+
+            <div class="toolbar__right">
+                <button class="btn btn--l btn--white btn--icon" lx-ripple lx-dialog-close>
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog__content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <lx-text-field label="Name">
+						<input type="text" ng-model="datoskroneroupdate.name">
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+
+                <div class="col-md-12">
+                    <lx-text-field label="User name">
+						<input type="text" ng-model="datoskroneroupdate.username">
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+                </div>
+
+            <div class="space-footer"></div>
+        </div>
+    </div>
+
+    <div class="dialog__actions">
+        <button class="btn btn--m btn--black btn--flat cuerpoBD" lx-ripple lx-dialog-close>Cancelar</button>
+		<button ng-click="modificar();" class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple>Actualizar</button>
+    </div>
+</lx-dialog>
+
+<lx-dialog class="dialog dialog--l" id="buscador" auto-close="true" onclose="closingDialog()" onscrollend="scrollEndDialog()">
+    <div class="dialog__header">
+        <div class="toolbar bgc-light-blue-500 pl++">
+            <span class="toolbar__label tc-white fs-title">
+                Nuevo Kronero
+            </span>
+
+            <div class="toolbar__right">
+                <button class="btn btn--l btn--white btn--icon" lx-ripple lx-dialog-close>
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog__content">
+        <div class="container">
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-9">
+                    <lx-text-field label="Buscar">
+                        <input type="text" ng-model="Buscador.texto">
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+
+                <div class="col-md-3">
+                    <button class="btn btn--s btn--krono btn--raised margin-r bajar-objeto" ng-click="Buscar()" lx-ripple>Buscar</button>
+                </div>
+            </div>
+            <div id="productos-modal">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Codigo de barras</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="prod in DatosBuscador">
+                                    <td><b>{{prod.name}}</b></td>
+                                    <td>{{(prod.barCode == 'null')?'':prod.barCode}}</td>
+                                    <td><button class="btn btn--s btn--krono btn--raised margin-r" lx-ripple ng-click="addStockItem(prod.id)">Agregar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Si no encontraste el producto que buscadas puedes crearlo</p><br />
+                        <button class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple ng-click="OpenPopUpDelay('nuevoProducto')" lx-dialog-close>Crear producto</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="formulario-crear">
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-9">
+                    <lx-text-field label="Nombre">
+                        <input type="text" ng-model="textFields.lastName">
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="label-derecha">Max 33 caracteres*</p>
+                </div>
+            </div>
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-12">
+                    <lx-text-field label="Descripci&oacute;n">
+                        <textarea type="text" ng-model="textFields.descripcion"></textarea>
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+            <div flex-container="row" flex-gutter="24">
+                <div class="col-md-12">
+                    <lx-text-field label="Palabras clave">
+                        <textarea type="text" ng-model="textFields.palabras"></textarea>
+                    </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="txt-verde">Como tienes el precio de este producto en tu sistema</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="radio-button">
+                            <input type="radio" id="radio1" name="radio1" value="1" class="radio-button__input">
+                            <label for="radio1" class="radio-button__label">Por peso</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="radio-button">
+                            <input type="radio" id="radio2" name="radio1" value="2" class="radio-button__input">
+                            <label for="radio2" class="radio-button__label">Por unidad</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="porPeso" class="visible">
+            <div class="row">
+                <div class="col-md-12">
+                        <h4 class="txt-verdeoscuro">Por peso</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <lx-select ng-model="selects.selectedPerson" placeholder="Unidad de medida en el sistema" choices="people" floating-label>
+                            <lx-select-selected>
+                                {{ $selected.name + ' ' + $selected.age }}
+                            </lx-select-selected>
+
+                            <lx-select-choices>
+                                {{ $choice.email }}
+                            </lx-select-choices>
+                        </lx-select>
+                        <!--  aca debe de aparecer las siguientes opciones "gramo" "Libra" "kilogramo" -->
+                    </div>
+                    <div class="col-md-6">
+                        <lx-text-field label="Peso promedio por Kilo">
+                            <input type="number" ng-model="textFields.peso">
+                        </lx-text-field>
+                    <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                </div>
+            </div>
+                        <p class="txt-alerta">
+                            El peso m&aacute;ximo del archivo es de 3MB. Los siguientes formatos son compatibles "jpeg, jpg, png".<br />
+                            El tama&ntilde;o de imagen que te recomendamos es de 200px x 200px
+                        </p>
+
+                        <lx-text-field label="Codigo de barras del producto">
+                            <input type="number" ng-model="textFields.codigo">
+                        </lx-text-field>
+                        <p class="txt-error bien">Campo vac&iacute;o o incorrecto</p>
+                        <p class="txt-alerta">
+                            Este es el codigo que sirve para sincronizar los precios 
+                        </p>
+                    </div>
+                    <div class="col-md-3 visible">
+                        <img src="../img/producto.png" class="imagen-nuevo-producto" />
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple ng-click="mostrarFormulario()">Crear</button>
+            </div>
+            <div class="space-footer"></div>
+        </div>
+            <div class="space-footer"></div>
+        </div>
+    </div>
+
+    <div class="dialog__actions">
+        <button class="btn btn--m btn--black btn--flat cuerpoBD" lx-ripple lx-dialog-close>Cancelar</button>
+		<button ng-click="guardar()" class="btn btn--s btn--krono btn--raised margin-r cuerpoBD" lx-ripple>Crear</button>
+    </div>
+</lx-dialog>
+
+
+<!-- Este es el boton fijo que cambia entre nuevoProducto y nuevoKronero-->
+
+<button class="btn btn--xl btn--blue btn--fab nuevo-producto" lx-ripple ng-click="(tab.activa == 0)?opendDialog('buscador'):(tab.activa == 1)?opendDialog('nuevoKronero'):opendDialog('buscador')"><i class="mdi mdi-plus txt-blanco"></i></button>
+
+<!-- Este es el boton fijo que cambia entre nuevoProducto y nuevoKronero-->
